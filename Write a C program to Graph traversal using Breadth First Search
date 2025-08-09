@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdbool.h>
+#define MAX 100
+int graph[MAX][MAX];
+bool visited[MAX];
+int queue[MAX];
+int front = 0, rear = -1;
+void enqueue(int v) { queue[++rear] = v; }
+int dequeue() { return queue[front++]; }
+bool isEmpty() { return front > rear; }
+void bfs(int start, int n) {
+    visited[start] = true;
+    enqueue(start);
+    while (!isEmpty()) {
+        int u = dequeue();
+        printf("%d ", u);
+        for (int v = 0; v < n; v++) {
+            if (graph[u][v] && !visited[v]) {
+                visited[v] = true;
+                enqueue(v);
+            }
+        }
+    }
+}
+int main() {
+    int n = 6;  // Number of vertices
+    // Initialize graph to 0
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            graph[i][j] = 0;
+    
+    // Example edges
+    graph[0][1] = graph[1][0] = 1;
+    graph[0][2] = graph[2][0] = 1;
+    graph[1][3] = graph[3][1] = 1;
+    graph[2][4] = graph[4][2] = 1;
+    graph[4][5] = graph[5][4] = 1;
+    printf("BFS starting from vertex 0:\n");
+    bfs(0, n);
+    return 0;
+}
