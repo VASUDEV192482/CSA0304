@@ -1,0 +1,25 @@
+#include <stdio.h>
+#define MAX 100
+void dfs(int graph[MAX][MAX], int visited[MAX], int u, int n) {
+    visited[u] = 1;
+    printf("%d ", u);
+    for (int v = 0; v < n; v++) {
+        if (graph[u][v] && !visited[v]) {
+            dfs(graph, visited, v, n);
+        }
+    }
+}
+int main() {
+    int n = 5;
+    int graph[MAX][MAX] = {
+        {0,1,1,0,0},
+        {1,0,0,1,0},
+        {1,0,0,0,1},
+        {0,1,0,0,1},
+        {0,0,1,1,0}
+    };
+    int visited[MAX] = {0};
+ printf("DFS starting from vertex 0:\n");
+    dfs(graph, visited, 0, n);
+    return 0;
+}
